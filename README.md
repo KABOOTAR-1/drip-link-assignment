@@ -50,36 +50,15 @@ VAD_AGGRESSIVENESS=2
 ### Basic Usage
 
 ```python
-from voice_recognition import VoiceRecognition
+# Choose your preferred connector
+from connectors.eleven_labs_connector import ElevenLabs_Connector
 
-# Initialize with your preferred provider
-voice_rec = VoiceRecognition(provider="elevenlabs")
+# Initialize the connector
+connector = ElevenLabs_Connector()
 
 # Detect language from audio file
-result = voice_rec.detect_language("path/to/audio.mp3")
-print(f"Detected language: {result['language']}")
-```
-
-### Advanced Usage
-
-```python
-from voice_recognition import VoiceRecognition
-
-# Initialize with custom settings
-voice_rec = VoiceRecognition(
-    provider="openai",
-    chunk_length_ms=15000,  # 15 seconds per chunk
-    vad_aggressiveness=3,   # High VAD filtering
-)
-
-# Detect language with detailed output
-result = voice_rec.detect_language("path/to/audio.mp3", detailed=True)
-
-# Access detailed results
-print(f"Detected language: {result['language']}")
-print(f"Confidence: {result['confidence']}")
-print(f"Processing time: {result['processing_time']}s")
-print(f"Cost: {result['cost']}")
+result = connector.detect_language("path/to/audio.mp3")
+print(f"Detected language: {result}")
 ```
 
 ## Supported Providers
@@ -89,9 +68,9 @@ print(f"Cost: {result['cost']}")
 Provides high-quality language detection with a language voting system across chunks.
 
 ```python
-from connectors.eleven_labs_connector import ElevenLabsConnector
+from connectors.eleven_labs_connector import ElevenLabs_Connector
 
-connector = ElevenLabsConnector(api_key="your_api_key")
+connector = ElevenLabs_Connector()
 result = connector.detect_language("path/to/audio.mp3")
 ```
 
@@ -100,9 +79,9 @@ result = connector.detect_language("path/to/audio.mp3")
 Leverages OpenAI's language detection capabilities with VAD-enhanced chunking.
 
 ```python
-from connectors.open_ai_connector import OpenAIConnector
+from connectors.open_ai_connector import OpenAI_Connector
 
-connector = OpenAIConnector(api_key="your_api_key")
+connector = OpenAI_Connector()
 result = connector.detect_language("path/to/audio.mp3")
 ```
 
@@ -111,9 +90,9 @@ result = connector.detect_language("path/to/audio.mp3")
 Implements VAD with chunking and token accumulation across chunks.
 
 ```python
-from connectors.gemini_connector import GeminiConnector
+from connectors.gemini_connector import Gemini_Connector
 
-connector = GeminiConnector(api_key="your_api_key")
+connector = Gemini_Connector()
 result = connector.detect_language("path/to/audio.mp3")
 ```
 
@@ -122,9 +101,9 @@ result = connector.detect_language("path/to/audio.mp3")
 Utilizes efficient audio chunking with Sarvam's language detection API.
 
 ```python
-from connectors.sarvam_ai_connector import SarvamAIConnector
+from connectors.sarvam_ai_connector import Sarvam_AI_Connector
 
-connector = SarvamAIConnector(api_key="your_api_key")
+connector = Sarvam_AI_Connector()
 result = connector.detect_language("path/to/audio.mp3")
 ```
 
@@ -164,7 +143,3 @@ All connectors use standardized parameters:
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
