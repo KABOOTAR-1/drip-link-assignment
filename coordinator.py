@@ -1,7 +1,7 @@
 from typing import List
 from config import settings
 from models import DetectionResponse, ProviderResult,DetectionStatus
-from connectors import open_ai_connector,gemini_connector,sarvam_ai_connector,eleven_labs_connector
+from connectors import OpenAI_Connector ,Gemini_Connector,Sarvam_AI_Connector, ElevenLabs_Connector
 import asyncio
 from time import time
 
