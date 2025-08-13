@@ -51,7 +51,7 @@ VAD_AGGRESSIVENESS=2
 
 ```python
 # Choose your preferred connector
-from connectors.eleven_labs_connector import ElevenLabs_Connector
+from connectors import ElevenLabs_Connector
 
 # Initialize the connector
 connector = ElevenLabs_Connector()
@@ -61,6 +61,78 @@ result = connector.detect_language("path/to/audio.mp3")
 print(f"Detected language: {result}")
 ```
 
+### API Endpoints
+
+The system provides a FastAPI web server with the following endpoints:
+
+#### POST `/detect/language`
+
+Detects the language spoken in an audio file.
+
+**Request Body:**
+```json
+{
+  "audio_path": "path/to/audio.mp3",
+  "ground_truth_language": "en"  // Optional ground truth for evaluation
+}
+```
+
+**Response:**
+```json
+{
+  "status": "success",
+  "detected_language": "en",
+  "processing_time_seconds": 1.23,
+  "provider_results": [
+    {
+      "provider": "ElevenLabs",
+      "language": "en",
+      "processing_time": 0.86,
+      "cost": 0.0002
+    },
+    // Results from other providers
+  ]
+}
+```
+
+#### GET `/providers`
+
+Lists all available language detection providers.
+
+**Response:**
+```json
+{
+  "providers": [
+    {
+      "name": "ElevenLabs",
+      "status": "available"
+    },
+    // Other providers
+  ]
+}
+```
+
+#### GET `/health`
+
+Health check endpoint.
+
+**Response:**
+```json
+{
+  "status": "healthy",
+  "providers_available": 4
+}
+```
+
+### Running the API Server
+
+```bash
+# Start the API server
+python main.py
+```
+
+The server runs on `http://localhost:8000` by default.
+
 ## Supported Providers
 
 ### ElevenLabs
@@ -68,7 +140,7 @@ print(f"Detected language: {result}")
 Provides high-quality language detection with a language voting system across chunks.
 
 ```python
-from connectors.eleven_labs_connector import ElevenLabs_Connector
+from connectors import ElevenLabs_Connector
 
 connector = ElevenLabs_Connector()
 result = connector.detect_language("path/to/audio.mp3")
@@ -79,7 +151,7 @@ result = connector.detect_language("path/to/audio.mp3")
 Leverages OpenAI's language detection capabilities with VAD-enhanced chunking.
 
 ```python
-from connectors.open_ai_connector import OpenAI_Connector
+from connectors import OpenAI_Connector
 
 connector = OpenAI_Connector()
 result = connector.detect_language("path/to/audio.mp3")
@@ -90,7 +162,7 @@ result = connector.detect_language("path/to/audio.mp3")
 Implements VAD with chunking and token accumulation across chunks.
 
 ```python
-from connectors.gemini_connector import Gemini_Connector
+from connectors import Gemini_Connector
 
 connector = Gemini_Connector()
 result = connector.detect_language("path/to/audio.mp3")
@@ -101,7 +173,7 @@ result = connector.detect_language("path/to/audio.mp3")
 Utilizes efficient audio chunking with Sarvam's language detection API.
 
 ```python
-from connectors.sarvam_ai_connector import Sarvam_AI_Connector
+from connectors import Sarvam_AI_Connector
 
 connector = Sarvam_AI_Connector()
 result = connector.detect_language("path/to/audio.mp3")

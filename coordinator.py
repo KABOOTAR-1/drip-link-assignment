@@ -14,26 +14,26 @@ class Coordinator:
         """Initialize all available connectors"""
         try:
             if settings.openai_api_key:
-                self.connector.append(open_ai_connector.OpenAI_Connector())
+                self.connector.append(OpenAI_Connector())
         except Exception as e:
             print(f"Failed to initialize OpenAI connector: {e}")
         
         try:
             if settings.google_api_key:
-                self.connector.append(gemini_connector.Gemini_Connector())
+                self.connector.append(Gemini_Connector())
         except Exception as e:
             print(f"Failed to initialize Google connector: {e}")
         
         try:
             if settings.sarvam_api_key:
-                self.connector.append(sarvam_ai_connector.Sarvam_AI_Connector())
+                self.connector.append(Sarvam_AI_Connector())
         except Exception as e:
             print(f"Failed to initialize SarvamAI connector: {e}")
 
         try:
             if settings.elevenlabs_api_key:
-                print("typing eleven labs")
-                self.connector.append(eleven_labs_connector.ElevenLabs_Connector())
+                print("Initializing ElevenLabs connector")
+                self.connector.append(ElevenLabs_Connector())
         except Exception as e:
             print(f"Failed to initialize ElevenLabs connector: {e}")
 
